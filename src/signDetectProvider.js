@@ -1,12 +1,31 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState,useContext } from 'react'
 import * as tf from "@tensorflow/tfjs";
-import "./App.css";
 
-export default function detectSignLanguage(webcamRef) {
-    const runCoco = async () => {
+const ArrayContext=React.createContext();
+
+export function useArray(){
+    return useContext(ArrayContext)
+}
+const SignDetectContext=React.createContext();
+
+export function useSignDetect(){
+    return useContext(SignDetectContext)
+}
+
+export function SignDetectProvider({children}) {
+    const [textArray,setTextArray]=useState([])
+
+    const runCoco = async (webcamRef) => {
         // console.log("Coco is running")
         // const net = await tf.loadGraphModel('https://lobe01.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json')
         // Python trained Youtube model
+        let arr=[]
+        setInterval(() => {
+            // console.log("Calling Detect")
+            arr.shift()
+            setTextArray(arr);
+            // arr=[]
+        }, 5000);
         const net = await tf.loadGraphModel('https://tensorflowjsrealtimemodel.s3.au-syd.cloud-object-storage.appdomain.cloud/model.json')
 
         setInterval(() => {
@@ -19,10 +38,13 @@ export default function detectSignLanguage(webcamRef) {
             // console.log(typeof webcamRef)
             // console.log(webcamRef.current.readyState)
             if (
-                typeof webcamRef !== "undefined" &&
+                webcamRef !== "undefined" &&
                 webcamRef !== null &&
+                webcamRef.current !==undefined&&
+                webcamRef.current !==null&&
                 webcamRef.current.readyState === 4
             ) {
+                console.log("inside if")
                 const video = webcamRef.current;
 
                 const img = tf.browser.fromPixels(video)
@@ -41,36 +63,31 @@ export default function detectSignLanguage(webcamRef) {
                     4:{name:'Yes', color:'blue'},
                     5:{name:'No', color:'purple'},
                 }
-                // const out = await obj.array()
                 const classes = await obj[2].array()
                 const scores = await obj[4].array()
-                // console.log(classes)
-                console.log(scores[0])
                 const labels=classes[0]
                 const prob=scores[0]
+                // console.log(textArray)
                 for(let i=0; i<=prob.length; i++){
-                    if(prob[i]>0.4){
-                        console.log(i)
+                    if(prob[i]>0.9){
+                        // console.log(i)
                         const text = labels[i]    
-                        console.log(labelMap[text]['name'] + ' - ' + Math.round(prob[i]*100)/100)
+                        // console.log(labelMap[text]['name'] + ' - ' + Math.round(prob[i]*100)/100)
+                        // let arr=textArray
+                        let str=labelMap[text]['name']
+                        // console.log((arr.lastIndexOf-1))
+                        // if(arr[arr.length()-1]!=str){
+                            // arr.push(str)
+                            // console.log(arr)
+                            // console.log(arr.length)
+                            if(arr.length===0||arr[arr.length-1]!==str){
+                                setTextArray(textArray=>[...textArray,str])
+                                arr.push(str)
+                                console.log(arr)
+                            }
+                        // }
                     }
                 }
-
-                // if (out) {
-                //     let maxi = out[0][0]
-                //     let ind = 0;
-
-                //     for (let i = 0; i < 4; i++) {
-                //         if (out[0][i] > maxi) {
-                //             maxi = out[0][i]
-                //             ind = i
-                //         }
-                //     }
-                //     console.log(maxi)
-                //     console.log(`index`, ind)
-                // }
-
-
                 tf.dispose(img)
                 tf.dispose(resized)
                 tf.dispose(casted)
@@ -80,6 +97,12 @@ export default function detectSignLanguage(webcamRef) {
             }
         };
     };
-
-    runCoco();
+  return (
+    <ArrayContext.Provider value={{textArray,setTextArray}}>
+    <SignDetectContext.Provider value={runCoco}>
+    {children}
+    </SignDetectContext.Provider>
+    </ArrayContext.Provider>
+  )
 }
+

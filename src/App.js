@@ -7,7 +7,9 @@ import { ReactComponent as HangupIcon } from "./icons/hangup.svg";
 import { ReactComponent as MoreIcon } from "./icons/more-vertical.svg";
 import { ReactComponent as CopyIcon } from "./icons/copy.svg";
 
-import detectSignLanguage from './detection'
+import DetectSignLanguage from "./DetectSignLanguage";
+import { SignDetectProvider } from "./signDetectProvider";
+import { useSignDetect } from "./signDetectProvider";
 
 import "./App.css";
 
@@ -43,6 +45,7 @@ const servers = {
 const pc = new RTCPeerConnection(servers);
 
 function App() {
+    // const {textArray,runCoco}= DetectSignLanguage()
     const [currentPage, setCurrentPage] = useState("home");
     const [joinCode, setJoinCode] = useState("");
 
@@ -55,11 +58,15 @@ function App() {
                     setPage={setCurrentPage}
                 />
             ) : (
+                <SignDetectProvider>
                 <Videos
                     mode={currentPage}
                     callId={joinCode}
                     setPage={setCurrentPage}
                 />
+                <DetectSignLanguage />
+                {/* {console.log(textArray)} */}
+                </SignDetectProvider>
             )}
         </div>
     );
@@ -87,6 +94,8 @@ function Menu({ joinCode, setJoinCode, setPage }) {
 function Videos({ mode, callId, setPage }) {
     const [webcamActive, setWebcamActive] = useState(false);
     const [roomId, setRoomId] = useState(callId);
+    // const {textArray,runCoco}= DetectSignLanguage()
+    const runCoco = useSignDetect()
 
     const localRef = useRef();
     const remoteRef = useRef();
@@ -111,7 +120,8 @@ function Videos({ mode, callId, setPage }) {
         localRef.current.srcObject = localStream;
         remoteRef.current.srcObject = remoteStream;
 
-        detectSignLanguage(remoteRef)
+        runCoco(remoteRef)
+        // detectSignLanguage(remoteRef)
 
 
         setWebcamActive(true);
