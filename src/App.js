@@ -64,7 +64,7 @@ function App() {
                     callId={joinCode}
                     setPage={setCurrentPage}
                 />
-                <DetectSignLanguage />
+                    <DetectSignLanguage />
                 {/* {console.log(textArray)} */}
                 </SignDetectProvider>
             )}
