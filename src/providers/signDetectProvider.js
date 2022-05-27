@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import * as tf from "@tensorflow/tfjs";
-import { irfft } from '@tensorflow/tfjs';
 
 const ArrayContext = React.createContext();
 
@@ -16,7 +15,7 @@ export function useSignDetect() {
 export function SignDetectProvider({ children }) {
     const [textArray, setTextArray] = useState([])
 
-    const runCoco = async (webcamRef) => {
+    const runDetectionModel = async (webcamRef) => {
 
 
 
@@ -51,7 +50,6 @@ export function SignDetectProvider({ children }) {
                 webcamRef.current !== null &&
                 webcamRef.current.readyState === 4
             ) {
-                console.log("inside if")
                 const video = webcamRef.current;
 
                 const img = tf.browser.fromPixels(video)
@@ -83,10 +81,6 @@ export function SignDetectProvider({ children }) {
 
                         let str = labelMap[text]['name']
 
-
-
-
-
                         if (arr.length === 0 || arr[arr.length - 1] !== str) {
                             setTextArray(textArray => [...textArray, str])
                             arr.push(str)
@@ -106,7 +100,7 @@ export function SignDetectProvider({ children }) {
     };
     return (
         <ArrayContext.Provider value={{ textArray, setTextArray }}>
-            <SignDetectContext.Provider value={runCoco}>
+            <SignDetectContext.Provider value={runDetectionModel}>
                 {children}
             </SignDetectContext.Provider>
         </ArrayContext.Provider>
