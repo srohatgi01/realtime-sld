@@ -1,7 +1,6 @@
 import Header from "../header/header"
 import "./style.css"
 import MacbookImg from "../../images/landing-img.png"
-import Doodles from "../../images/doodles.jpg"
 /**
  * Landing Page Component 
  * Gives you the option to create a new Call or Join existing one.
@@ -14,7 +13,7 @@ function Menu({ joinCode, setJoinCode, setPage }) {
             <div className="tagline-wrapper">
                 <h1 className="tagline">Create conversations in Realtime using Sign Langugage!!!</h1>
             </div>
-            <img className="landing-img" src={MacbookImg} />
+            <img className="landing-img" src={MacbookImg} alt="Macbook"/>
             <div className="call">
                 <button onClick={() => setPage("create")}>Create New Call</button>
                 <div>
@@ -24,7 +23,7 @@ function Menu({ joinCode, setJoinCode, setPage }) {
                         placeholder="Join with Code"
 
                     />
-                    {joinCode != "" ? <button onClick={() => setPage("join")}>Answer</button> : ""}
+                    {joinCode !== "" ? <button onClick={() => setPage("join")}>Answer</button> : ""}
                 </div>
             </div>
         </>
