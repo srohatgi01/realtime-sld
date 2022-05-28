@@ -40,6 +40,7 @@ export function SignDetectProvider({ children }) {
         }, 5000);
 
         // loading graph model from remote url
+        console.log(process.env.REACT_APP_MODEL_URL)
         const model = await tf.loadGraphModel(process.env.REACT_APP_MODEL_URL)
 
         // making detections every 500 miliseconds
