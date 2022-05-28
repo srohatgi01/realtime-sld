@@ -24,3 +24,6 @@ export const servers = {
     ],
     iceCandidatePoolSize: 10,
 };
+
+//Model URL
+export const modelurl = "https://tensorflowjsrealtimemodel.s3.au-syd.cloud-object-storage.appdomain.cloud/model.json"
