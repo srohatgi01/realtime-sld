@@ -1,8 +1,11 @@
 import { useArray } from "../../providers/signDetectProvider";
 import "./styles.css"
 
+/**
+ * Component used to display array elements on the user's screen
+ */
 function DetectedText() {
-  const { textArray } = useArray([]);
+  const { textArray } = useArray();
   let i=0;
 
   return (

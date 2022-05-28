@@ -1,6 +1,9 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 
+/**
+ * The function initializes firebase and a return it's object.
+ **/
 export default function initFirebase() {
     const firebaseConfig = {
         apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,6 +23,10 @@ export default function initFirebase() {
     else return;
 }
 
+/**
+ * To be called directly without calling "initFirebase". The function 
+ * initializes firebase & firestore database and return the object.
+ **/
 export function initFirestore() {
     const firebaseObj = initFirebase()
     if (firebaseObj !== undefined || firebaseObj !== null) {

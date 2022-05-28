@@ -30,7 +30,7 @@ function App() {
                     setPage={setCurrentPage} />
             ) : (
                 /** 
-                 * The provider helps in passing custom hook enclosing function 
+                 * The provider helps in passing custom hook enclosing function  
                  * and state variables without manually passing props to every 
                  * component in the component heirarchy
                 **/
