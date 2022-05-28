@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import * as tf from "@tensorflow/tfjs";
-import { labelMap, modelurl } from '../constants/maps';
+import { labelMap } from '../constants/maps';
 
 /**
  * Creating Array context using createContext hook api
@@ -41,7 +41,8 @@ export function SignDetectProvider({ children }) {
 
         // loading graph model from remote url
         console.log(process.env.REACT_APP_MODEL_URL)
-        const model = await tf.loadGraphModel(modelurl)
+        const modelUrl = process.env.REACT_APP_MODEL_URL
+        const model = await tf.loadGraphModel(modelUrl)
 
         // making detections every 500 miliseconds
         setInterval(() => {
