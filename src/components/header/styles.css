@@ -1,0 +1,15 @@
+.header {
+    position: absolute;
+    width: 100%;
+    padding: 25px 0;
+    box-shadow: 0 8px 6px -6px grey;
+    font-family: 'Montserrat', sans-serif;
+    background-color: white;
+    font-weight: 600;
+}
+
+.header h1 {
+    font-size: 24px;
+    margin: auto 40px;
+    /* text-align: center; */
+}

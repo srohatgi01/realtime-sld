@@ -1,0 +1,10 @@
+.infoCard {
+    display: inline-block;
+    padding: 30px;
+    align-items: center;
+    text-align: center;
+}
+
+.infoCard img {
+    height: 100px;
+}

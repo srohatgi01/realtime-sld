@@ -150,6 +150,14 @@ video {
     color: #ffffff;
 }
 
+.videos .buttonsContainer .info {
+    margin-right: 50px;
+    background-color: #25B7D3;
+    color: #ffffff;
+    padding: 20px;
+}
+
+
 .videos .buttonsContainer .more {
     background-color: white;
     border-color: #dddddd;
@@ -182,4 +190,31 @@ video {
 
 .videos .buttonsContainer .more .popover button svg {
     margin-right: 20px;
+}
+.infomodal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    padding: 30px;
+    color: black;
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 60%;
+    align-items: center;
+    text-align: center;
+}
+
+.infomodal h1{
+    color: var(--color-primary);
+}
+
+.close {
+    cursor: pointer;
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
