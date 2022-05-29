@@ -28,6 +28,19 @@ npm start
 
 **Note :** This repository includes **.env.development** file with all the back-end credentials. This is not a good practice to include enviroment variables into Github Repository but for the sake of simplicity of running this project locally, the enviroment file is included with all the necessary credentials. Feel free to change the credentials if needed.  
 
+## Usage
+- Once You open the Web App:
+    - If you are the Host, you will be able to create video call by clicking “Create Call”
+    - If you are the remote caller, you will be able to join the call by pasting the joining code on the text field and then clicking on "Answer"
+-	Once you create/join the call app will ask the permission for camera and microphone. Click on start to give the permission
+-	Now you will be able to see your own video on left bottom
+-	You can copy the joining code by first clicking on 3 dot icon and the clicking on “Copy joining code” and then share it to the remote user
+-	Once the remote user joins the meet his/her video will be visible on the screen
+-	You can refer the available signs that can be detected by app by clicking on info icon (i)
+-	Now when the remote uses those hand signs the app will detect and show it in text in realtime
+-	At last one can end the meet by clicking on red button to end the meet
+
+
 # About the Project
 I opted for the first challenge i.e. Face Recognition track and developed a video calling app which can detect and display sign language into English words in Realtime.
 
