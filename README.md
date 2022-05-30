@@ -37,8 +37,8 @@ npm start
 -	You can copy the joining code by first clicking on 3 dot icon and the clicking on “Copy joining code” and then share it to the remote user
 -	Once the remote user joins the meet his/her video will be visible on the screen
 -	You can refer the available signs that can be detected by app by clicking on info icon (i)
--	Now when the remote uses those hand signs the app will detect and show it in text in realtime
--	At last one can end the meet by clicking on red button to end the meet
+-	Now when the remote user uses the hand signs, app will detect and show it in text in realtime
+-	At last one can end the meet by clicking on red button
 
 
 # About the Project
@@ -50,3 +50,24 @@ This project uses Tensorflow to make detections and WebRTC to make videocalls. F
 - **Tensorflow :** TensorFlow is an end-to-end open source platform for machine learning. It has a comprehensive, flexible ecosystem of tools, libraries and community resources that lets researchers push the state-of-the-art in ML and developers easily build and deploy ML powered applications.
 - **WebRTC :** Web RealTime communication. With WebRTC, you can add real-time communication capabilities to your application that works on top of an open standard. It supports video, voice, and generic data to be sent between peers, allowing developers to build powerful voice- and video-communication solutions.
 - **React :** React is a free and open-source front-end JavaScript library for building user interfaces based on UI components.
+
+## Working
+
+Let's see how the app is working behind the scenes - 
+
+![Project Architecture](https://user-images.githubusercontent.com/24872423/171057640-4867f621-d53e-487d-842b-ced483a21988.jpg)
+
+Using WebRTC a 1-to-1, peer-to-peer, video communication is established.
+When user clicks on "Create a New Call", an offer is generated inside the Firebase Firestore Cloud Database and a unique code is returned to the user 1 who can now share this unique code with anyone in the world and the user 2 can input the joining code and click on "Answer" to join the call.
+
+Every user, i.e, User 1 and User 2, both have two components, 
+-   A video stream which webcam is capturing
+-   A remote stream receiving from the opposite user in order to display on screen
+
+As soon as the remote stream starts, before displaying it to the screen, a reference of the remote stream is passed to the Tensorflow Graph Model where it analyses and run detection on the remote stream reference every 500 miliseconds and as soon as it detects any sign over the mentioned threshold, it finds that word in the map provided and shows the word on screen. 
+
+On every 5000 miliseconds of any word appearing, the word which came first is deleted forming a Queue.
+
+# Limitations
+
+Due to lack of time and resources available, the model is not trained very well. If given more dataset and trained properly, the model will give far better results in detecting the hand signs and even elaborate the vocabulary of the app. 
