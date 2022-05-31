@@ -26,8 +26,31 @@ npm install
 npm start
 ```
 
-**Note :** This repository includes **.env.development** file with all the back-end credentials. This is not a good practice to include enviroment variables into Github Repository but for the sake of simplicity of running this project locally, the enviroment file is included with all the necessary credentials. Feel free to change the credentials if needed.  
+**Note :** This repository includes **.env.development** file with all the back-end credentials. This is not a good practice to include environment variables into Github Repository but for the sake of simplicity of running this project locally, the environment file is included with all the necessary credentials. Feel free to change the credentials if needed.  
 
+### Environment Variables
+
+Here are all the environment variables needed and their details -
+-   **Firebase configurations.** Any firebase account can be used a signaling server, just create a web app and extract these configurations from project settings.
+   
+       ```
+        # Firebase Configuration
+        REACT_APP_FIREBASE_API_KEY = ""
+        REACT_APP_FIREBASE_AUTH_DOMAIN = ""
+        REACT_APP_FIREBASE_PROJECT_ID = ""
+        REACT_APP_FIREBASE_STORAGE_BUCKET = ""
+        REACT_APP_FIREBASE_MESSAGING_SENDER_ID = ""
+        REACT_APP_FIREBASE_APP_ID = ""
+       ```
+-  **Tensorflow GraphModel URL.** In order to not make changes to the app everytime model gets updated, it is extracted through a simple bucket on the cloud. Right now the model of this app is hosted on the IBM Bucket and it's public url is passed as an environment variable.
+       ```
+       
+         REACT_APP_MODEL_URL = "https://tensorflowjsrealtimemodel.s3.au-syd.cloud-object-storage.appdomain.cloud/model.json"
+   
+-   **Accuracy Threshold.** Currently if the model is more than 90% sure then only will it displays the detected word on screen. It might be strict and we might see less detections with these values. The strictness can be varied from the range of 0 to 1 (0 being the not strict at all, 1 being only with 100% accuracy will be displayed). Ideal value range from 0.7 to 0.9 which can be changed by changing the environment variable value.
+       ``` 
+         REACT_APP_THRESHOLD = 0.9
+       ```
 ## Usage
 - Once You open the Web App:
     - If you are the Host, you will be able to create video call by clicking “Create Call”
