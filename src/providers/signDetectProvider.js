@@ -73,6 +73,8 @@ export function SignDetectProvider({ children }) {
                 const expanded = casted.expandDims(0)
                 const obj = await model.executeAsync(expanded)
 
+                console.log(obj)
+
 
                 /**
                  * obj above is a Tensor object, it contains all the detected 
@@ -80,10 +82,11 @@ export function SignDetectProvider({ children }) {
                  * Through classes relevant label is extracted and it's 
                  * confidence score.
                  * **/
-                const classes = await obj[2].array()
-                const scores = await obj[4].array()
+                const classes = await obj[4].array()
+                const scores = await obj[1].array()
                 const labels = classes[0]
                 const prob = scores[0]
+               
 
                 /**
                  * checking the confidence score is greater than threshold
@@ -94,6 +97,7 @@ export function SignDetectProvider({ children }) {
                 for (let i = 0; i <= prob.length; i++) {
                     if (prob[i] > process.env.REACT_APP_THRESHOLD) {
                         const text = labels[i]
+                        // console.log(labelMap)
                         let str = labelMap[text]['name']
                         if (arr.length === 0 || arr[arr.length - 1] !== str) {
                             setTextArray(textArray => [...textArray, str])

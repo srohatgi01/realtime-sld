@@ -6,10 +6,10 @@ import Yes from "../images/yes.PNG"
 // Labels for detected texts
 export const labelMap = {
     1: { name: 'Hello', img: Hello },
-    2: { name: 'Thank You', img: Ty },
-    3: { name: 'I Love You', img: Ily },
-    4: { name: 'Yes', img: Yes },
-    5: { name: 'No', img: No },
+    4: { name: 'Thank You', img: Ty },
+    5: { name: 'I Love You', img: Ily },
+    2: { name: 'Yes', img: Yes },
+    3: { name: 'No', img: No },
 }
 
 // Initialize WebRTC
@@ -24,6 +24,3 @@ export const servers = {
     ],
     iceCandidatePoolSize: 10,
 };
-
-//Model URL
-export const modelurl = "https://tensorflowjsrealtimemodel.s3.au-syd.cloud-object-storage.appdomain.cloud/model.json"
